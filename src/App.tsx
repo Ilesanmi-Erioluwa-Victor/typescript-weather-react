@@ -1,8 +1,13 @@
-import React, { useState } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 // import Search from './components/Search';
 
-function App() {
-  const [term, setTerm ] = useState("")  
+const App = (): JSX.Element => {
+  const [term, setTerm ] = useState("") ;
+
+  const onInputchange = (e:ChangeEvent<HTMLInputElement>)=> {
+    console.log(e.target.value)
+   
+  }
   return (
   <main className="flex justify-center items-center bg-gradient-to-br from-sky-400 via-rose-400 to-lime-400 h-[100vh] w-full">
   <section>
@@ -11,7 +16,7 @@ function App() {
   </section>
 
   <div className="flex mt-10">
-  <input type="text" name='text' value={""} />
+  <input type="text" name='text' value={term} onChange={onInputchange}/>
   <button type="submit">Send</button>
   </div>
   </main>
