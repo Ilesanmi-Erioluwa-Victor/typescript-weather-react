@@ -4,8 +4,11 @@ import React, { ChangeEvent, useState } from 'react';
 const App = (): JSX.Element => {
   const [term, setTerm] = useState<string>("");
 
+  const [options, setOptions ] = useState<[]>([])
+
   const getResult = async (value : string) => {
    await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${value.trim()}&limit=5&appid=${ process.env.REACT_APP_API_KEY}`)
+   .then(response => response.json()).then(response => setOptions(response))
 
   }
 
@@ -25,6 +28,9 @@ const App = (): JSX.Element => {
 
       <div className="flex mt-10">
         <input type="text" name='text' value={term} onChange={onInputchange} />
+        {options.map( (option : {name : string},i)=> (
+          <p key={i}>{option.name}</p>
+        ))}
         <button type="submit">Send</button>
       </div>
     </main>
