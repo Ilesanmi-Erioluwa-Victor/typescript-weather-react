@@ -2,12 +2,19 @@ import React, { ChangeEvent, useState } from 'react';
 // import Search from './components/Search';
 
 const App = (): JSX.Element => {
-  const [term, setTerm] = useState<String>("");
+  const [term, setTerm] = useState<string>("");
+
+  const getResult = async (value : string) => {
+   await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${value.trim()}&limit=5&appid=${ process.env.REACT_APP_API_KEY}`)
+
+  }
 
   const onInputchange = (e: ChangeEvent<HTMLInputElement>) => {
-    setTerm(e.target.value)
+    const value = e.target.value.trim();
+    setTerm(value)
+      if(!value.length) return false;
+    getResult(value)
 
-    fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${term}&limit=5&appid=${ process.env.REACT_APP_API_KEY}`)
   }
   return (
     <main className="flex justify-center items-center bg-gradient-to-br from-sky-400 via-rose-400 to-lime-400 h-[100vh] w-full">
