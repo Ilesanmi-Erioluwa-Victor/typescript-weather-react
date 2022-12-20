@@ -1,6 +1,8 @@
 import React, { ChangeEvent, useState } from 'react';
 // import Search from './components/Search';
 
+import { optionType } from './types';
+
 const App = (): JSX.Element => {
   const [term, setTerm] = useState<string>("");
 
@@ -19,6 +21,11 @@ const App = (): JSX.Element => {
     getResult(value)
 
   }
+
+  const OnSelectOption = (option: optionType) => {
+
+  }
+
   return (
     <main className="flex justify-center items-center bg-gradient-to-br from-sky-400 via-rose-400 to-lime-400 h-[100vh] w-full">
       <section>
@@ -27,9 +34,14 @@ const App = (): JSX.Element => {
       </section>
 
       <div className="flex mt-10">
+        <ul>
+
+        </ul>
         <input type="text" name='text' value={term} onChange={onInputchange} />
-        {options.map( (option : {name : string},i)=> (
-          <p key={i}>{option.name}</p>
+        {options.map( (option : optionType,i: number )=> (
+          <li key={i}>
+            <button className="block text-yellow-400" onClick={()=>OnSelectOption(option)}>{option.name}</button>
+          </li>
         ))}
         <button type="submit">Send</button>
       </div>
